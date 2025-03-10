@@ -14,11 +14,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utils.CommonUtilities;
+import utils.ElementUtils;
 
 public class YahooFinanceHomepage {
 
 	WebDriver driver;
-
+	
+	ElementUtils elementUtils = new ElementUtils(driver);
 
 
 	public  YahooFinanceHomepage(WebDriver driver) {
@@ -37,15 +39,15 @@ public class YahooFinanceHomepage {
 
 
 	public void EnterdataInSearchfield(String text) throws IOException {
-
-		searchfield.sendKeys(text);
+		elementUtils.sendKeysToElement(searchfield,text);
 	}
 	public boolean verifyAutosuggest() throws IOException {
 		Properties prop;
 		prop = CommonUtilities.loadProperiesFile();
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		WebElement suggestion = wait.until(ExpectedConditions.visibilityOf(firstsuggestion));
-		return suggestion.getText().equals(prop.getProperty("expectedfirstautosuggestion"));
+//		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//		WebElement suggestion = wait.until(ExpectedConditions.visibilityOf(firstsuggestion));
+		elementUtils.waitForElementToBeVisible(firstsuggestion, 5);
+		return firstsuggestion.getText().equals(prop.getProperty("expectedfirstautosuggestion"));
 	}
 	public TSLAStockPage clickonfirstsuggestion() throws IOException {
 		if(verifyAutosuggest()) {

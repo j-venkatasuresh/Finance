@@ -19,12 +19,14 @@ import org.testng.annotations.Test;
 import pages.TSLAStockPage;
 import pages.YahooFinanceHomepage;
 import utils.CommonUtilities;
+import utils.ElementUtils;
 
 public class Testcase  {
 
 	private WebDriver driver;
 
 	private YahooFinanceHomepage yahooFinanceHomepage;
+	private ElementUtils elementitils;
 	private TSLAStockPage tslaStockPage;
 	Properties prop;
 
@@ -49,6 +51,7 @@ public class Testcase  {
 		driver.get("https://finance.yahoo.com/");
 		driver.manage().window().maximize();
 		yahooFinanceHomepage = new YahooFinanceHomepage(driver);
+		
 
 	}
 	@Test
